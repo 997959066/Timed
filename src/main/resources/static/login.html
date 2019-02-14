@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>login</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" href="layui/css/layui.css" media="all" /> 
+  <link rel="stylesheet" href="css/font_eolqem241z66flxr.css" media="all" /> 
+  <link rel="stylesheet" href="css/login.css" media="all" />
+</head>
+<body>
+<div id="login-page" class="loginPage">
+  <div class="loginContent">
+    <div class="faceLogo">
+      <img src="images/timg.gif" alt="">
+    </div>
+    <form class="form-login" action="">
+      <div class="input">
+        <input type="text" name="title" class="user userName" placeholder="Username">
+      </div>
+      <div class="input">
+        <input type="password" name="username" class="user userPwd" placeholder="Password">
+      </div>
+      <div class="input loginBtn">
+        <button class="btn" id="loginBtn"><i class="fa fa-lock"></i>  LOGIN</button>
+      </div>
+    </form>
+  </div>
+  <div class="logoContainer">
+    <img src="images/baozun_logo.png" alt="">
+  </div>
+</div>
+
+<script type="text/javascript" src="js/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+layui.config({
+  base : "js/"
+}).use(['layer','jquery'], function(){
+  var layer = layui.layer,
+		  $ = layui.jquery
+    
+  $('#loginBtn').on('click', function(e) {
+    e.preventDefault();
+    var userName = $(".userName").val();
+    var userPwd = $(".userPwd").val();
+    /* var checkUser = sysUserList.filter(function(item) { return item.userName == userName && item.userPwd == userPwd }); */
+    if(userName === "" || userPwd === "") {
+      layer.tips('用户名和密码不能为空！', '.userName', {
+        tips: 1
+      });
+    } else {
+      $.ajax({
+        type: "post",
+        url: api + "/scheduleJob/login",
+        data:{
+          userName: userName,
+          password: userPwd
+        },
+        dataType: 'json',
+        success: function(data) {
+          if(data == true) {
+           /*  sessionStorage.setItem("currentUser", JSON.stringify(checkUser[0])); */
+            window.location.href="../job.html";
+          }else {
+            layer.msg("账号或密码错误");
+          }
+        },
+        error: function(data) {
+          layer.tips("账号或密码错误");
+        }
+      })
+    }
+  })
+})
+</script>
+</body>
+</html>

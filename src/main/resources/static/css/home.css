@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/************************************** 首页 **************************************/
+.watchContainer {
+  width: 100%;
+  height: auto;
+  padding: 10px; 
+  font-size: 14px;
+  color: #616161; 
+  display: flex;
+  background: #fafafa; 
+  /* background: #161616;  */
+}
+.watchContainer>div {
+  /* border: 1px solid #000; */
+}
+
+/******************* 监控 *********************/
+.watchData {
+  flex: 1;
+}
+.watchBox {
+  /* color: #bababa; */
+  background: #fff; 
+  /* background: #1f1f1f; */
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  padding: 6px 15px 15px 15px;
+}
+.watchBox .itemTit {
+  font-size: 16px;
+  line-height: 34px;
+}
+.watchBox .selItem {
+  /* height: 32px; */
+}
+.watchBox .selItem>div {
+  display: flex;
+  justify-content: flex-end;
+}
+.watchBox .selItem>div>p {
+  margin-left: 5px;
+}
+.cutChartType {
+  margin-top: 10px;
+}
+.cutChartType .layui-form-radio {
+  margin: 0;
+  padding: 0 0 0 10px;
+  line-height: 32px;
+}
+.cutChartType .layui-form-radio i {
+  margin-right: 5px;
+}
+.watchBox .itemTit span i {
+  display: inline-block;
+  margin-right: 10px;
+}
+.watchShopModule {
+  height: 380px;
+  margin-top: 10px;
+  position: relative;
+}
+.watchShopModule>div {
+  width: 100%;
+  height: 100%;
+  background: #fff; 
+  /* background: #1f1f1f; */
+  position: absolute;
+}
+.watchShopModule .watchShopModule_bar {
+  z-index: 111;
+}
+.blockBox {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.blockBox .watchBox {
+  width: 32.6%;
+  margin-top: 10px;
+}
+.blockBox .watchBox .watch {
+  height: 230px;
+}
+.blockBox2 .watchBox {
+  width: 49.4%;
+  margin-top: 10px;
+}
+.watchBox .layui-input {
+  width: 200px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  color: #666;
+}
+.watchBox .layui-form-select {
+  font-size: 14px;
+  color: #666;
+}
+
+/******************* 操作说明 *********************/
+.handleExplain {
+  width: 25%;
+  min-height: 600px;
+  margin-left: 10px;
+  padding: 13px;
+  background: #fff;  
+  /* background: #1f1f1f; */
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+.handleExplain h3 {
+  font-size: 16px;
+}
+.handleExplain h3 i {
+  display: inline-block;
+  margin-right: 10px;
+}
+.handleExplain .explainTit {
+  padding-left: 15px;
+  margin-top: 18px;
+}
+.handleExplain .explainTit li {
+  margin-bottom: 13px;
+}
+.handleExplain .explainTit li a {
+  display: flex;
+}
+.handleExplain .explainTit li a i {
+  margin-right: 6px;
+}
+
+
+
+.handleStep {
+  padding: 15px;
+}

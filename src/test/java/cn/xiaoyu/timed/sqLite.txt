@@ -1,0 +1,37 @@
+﻿CREATE TABLE "scheduleJob" (
+  "ID" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "jobName" varchar(50) default('定时执行任务'),
+  "jobGroup" varchar(40) default ('task'),
+  "jobStatus" tinyint(4) default(0),
+  "jobDesc" varchar(200) default ('定时执行任务备注'),
+  "jobUrl" varchar(200) default null,
+  "jobParam" varchar(500) default null,
+  "jobHeader" varchar(500) default null,
+  "cronExpression" varchar(100) default null,
+  "concurrent" tinyint(4) default(0),
+  "targetObject" varchar(100) default('cn.xiaoyu.schedule.HttpClient'),
+  "targetMethod" varchar(40) default null,
+  "retryCount" tinyint(4) default(1),
+  "failCallbackUrl" varchar(200) default null,
+  "execStatus" tinyint(4) default(0),
+	"beginDate" TIMESTAMP default (datetime('now', 'localtime')),
+	"expiredDate" TIMESTAMP default (datetime('now', 'localtime')),
+  "createDate" TIMESTAMP default (datetime('now', 'localtime')),
+  "updateDate" TIMESTAMP default (datetime('now', 'localtime'))
+);
+
+
+CREATE TABLE scheduleJobLog (
+  "ID" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ,
+  "jobId" int(11) NOT NULL,
+  "execUrl" varchar(300),
+  "execMsg" varchar(200),
+  "execStatus" tinyint(4) NOT NULL,
+  "createDate" TIMESTAMP default (datetime('now', 'localtime')),
+  "optStatus" tinyint(4),
+  "updateDate" TIMESTAMP default (datetime('now', 'localtime'))
+);
+
+
+1	每日定时调用	task	0	重复任务添加	http://localhost:8080/open/api/products/listWithFullData	{"app_key":"5c08c1a34377631bf563ca1c","article_no":["SMAMF18R111"]}	{"appToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1YzA4YzFhMzQzNzc2MzFiZjU2M2NhMWMiLCJleHAiOjE4NTk0NzgyMjJ9.pd1nsRXo7qjCLXDpFzHrKoq_G3H1Wz0UqrObWy_F1xFK9rAHDnvqEJ0ncSN0WUzccCv8cKWnJr8gI5AJxAnIeQ"}	0 1/1 * * * ? 	0	com.baozun.pim.timed.schedule.HttpClient	post	0		2	2019-01-05 12:30:00	2019-01-08 13:49:00	2018-08-06 17:52:09	2018-08-06 17:52:09
+2	每日定时调用	task	0	重复任务添加	http://localhost:8080/j/api/v1/goodsQuality/getProductsMaterial	{"_id":"5c11f7d1b4fefe5a1ccb98ed"}		0 1/1 * * * ? 	0	com.baozun.pim.timed.schedule.HttpClient	get	0		2	2019-01-05 12:30:00	2019-01-08 13:49:00	2018-08-06 17:52:09	2018-08-06 17:52:09

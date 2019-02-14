@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>定时任务操作看板</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" href="layui/css/layui.css" media="all" />
+  <link rel="stylesheet" href="css/font_eolqem241z66flxr.css" media="all" />
+	<link rel="stylesheet" href="iconfont/iconfont.css" media="all" />
+  <link rel="stylesheet" href="css/common.css" media="all" />
+  <style>
+    .layui-form-label {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+<div class="detailContainer">
+  <!-- 操作（增删改查） -->
+  <div class="searchBox" id="handleBox">
+    <h5 class="searchHeader">操作框 
+      <span class="upDown" id="upDown">
+        <i class="iconfont upIcon" style="display: block;">&#xe620;</i>
+        <i class="iconfont downIcon">&#xe61f;</i>
+      </span>
+    </h5>
+    <div class="searchContent" id="handleContent">
+      <div class="searchTerm layui-form">
+        <input type="text" class="layui-input" id="jobId" placeholder="编号">
+        <input type="text" class="layui-input" id="jobName" placeholder="任务名称">
+        <div class="layui-input-inline">
+          <select name="" id="execStatus">
+            <option value="">任务执行状态</option>
+            <option value="1">1-正常</option>
+            <option value="2">2-错误</option>
+            <option value="3">3-异常</option>
+          </select>
+        </div>
+      </div>
+      <div class="searchTerm layui-form">
+        <div class="layui-input-inline">
+          <select name="" id="jobStatus">
+            <option value="">任务状态</option>
+            <option value="0">0-初始</option>
+            <option value="1">1-启用</option>
+            <option value="2">2-删除</option>
+          </select>
+        </div>
+        <div class="layui-input-inline">
+          <select name="" id="concurrent">
+            <option value="">是否并发启动</option>
+            <option value="0">0-禁用</option>
+            <option value="1">1-启用</option>
+          </select>
+        </div>
+      </div>
+      <button class="layui-btn layui-btn-sm" id="add"><i class="layui-icon">&#xe654;</i> 新增</button>
+      <button class="layui-btn layui-btn-sm" id="edit"><i class="layui-icon">&#xe642;</i> 编辑</button>
+      <button class="layui-btn layui-btn-sm" id="delete"><i class="layui-icon">&#xe640;</i> 删除</button>
+      <button class="layui-btn layui-btn-sm" id="search"><i class="layui-icon">&#xe615;</i> 查询</button>
+      <!--  需要配置 ip -->
+      <a href="" id="aIp" class="layui-btn layui-btn-sm" target="_blank" style="margin-left: 30px;">
+        <i class="layui-icon">&#xe63c;</i> 正在执行的列表
+      </a>
+    </div>
+  </div>
+  <!-- table 内容 -->
+  <div class="contentBox">
+    <table class="layui-hide" id="contentTable" lay-filter="jobTable"></table>
+    <div id="pagination"></div>
+  </div>
+</div>
+<div class="dialog" id="addDialog">
+  <div class="layui-form">
+    <div class="layui-form-item">
+      <label class="layui-form-label" title="显示在任务管理器">任务名称*</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addJobName">
+      </div>
+      <label class="layui-form-label">任务状态</label>
+      <div class="layui-input-inline">
+        <select name="" id="addJobStatus">
+          <option value="1">1-启用</option>
+          <option value="0">0-初始</option>
+          <option value="2">2-删除</option>
+        </select>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">任务描述</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addJobDesc">
+      </div>
+      <label class="layui-form-label">任务时间表达式*</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addCronExpression">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">调用url*</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addJobUrl">
+      </div>
+      <label class="layui-form-label">执行方式*</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addTargetMethod">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">传入参数</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addJobParam">
+      </div>
+      <label class="layui-form-label">请求头</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addJobHeader">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">并发启动</label>
+      <div class="layui-input-inline">
+        <select name="" id="addConcurrent">
+          <option value="0">0-禁用</option>
+          <option value="1">1-启用</option>
+        </select>
+      </div>
+      <label class="layui-form-label">目标执行的类</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addTargetObject">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">定时任务开始时间</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addBeginDate">
+      </div>
+      <label class="layui-form-label">截至时间</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addExpiredDate">
+      </div>
+    </div>
+ 
+    <div class="layui-form-item">
+      <label class="layui-form-label">任务执行状态</label>
+      <div class="layui-input-inline">
+        <select name="" id="addExecStatus">
+          <option value="">请选择</option>
+          <option value="1">1-正常</option>
+          <option value="2">2-错误</option>
+          <option value="3">3-异常</option>
+        </select>
+      </div>
+      <label class="layui-form-label">失败后回调url</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addFailCallbackUrl">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">失败后重试次数</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="addRetryCount">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dialog" id="editDialog">
+  <div class="layui-form">
+    <div class="layui-form-item">
+      <label class="layui-form-label" title="显示在任务管理器">任务名称</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editJobName">
+      </div>
+      <label class="layui-form-label">任务状态</label>
+      <div class="layui-input-inline">
+        <select name="" id="editJobStatus">
+          <option value="1">1-启用</option>
+          <option value="0">0-初始</option>
+          <option value="2">2-删除</option>
+          </select>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">任务描述</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editJobDesc">
+      </div>
+      <label class="layui-form-label">任务时间表达式</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editCronExpression">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">并发启动</label>
+      <div class="layui-input-inline">
+        <select name="" id="editConcurrent">
+          <option value="0">0-禁用</option>
+          <option value="1">1-启用</option>
+        </select>
+      </div>
+      <label class="layui-form-label">目标执行的类</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editTargetObject">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">url</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editJobUrl">
+      </div>
+      <label class="layui-form-label">执行的方式</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editTargetMethod">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">请求头</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editJobHeader">
+      </div>
+      <label class="layui-form-label">传入的参数</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editJobParam">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">定时任务开始时间</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editBeginDate">
+      </div>
+      <label class="layui-form-label">截至时间</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editExpiredDate">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">任务执行状态</label>
+      <div class="layui-input-inline">
+        <select name="" id="editExecStatus">
+          <option value="">请选择</option>
+          <option value="1">1-正常</option>
+          <option value="2">2-错误</option>
+          <option value="3">3-异常</option>
+        </select>
+      </div>
+      <label class="layui-form-label">失败后回调url</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editFailCallbackUrl">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">失败后重试次数</label>
+      <div class="layui-input-inline">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="editRetryCount">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 查看日志 -->
+<div class="checkLogDialog" id="checkLogDialog">
+  <div class="logContent">
+    <table class="layui-hide" id="logTable"></table>
+    <div id="logPage"></div>
+  </div>
+</div>
+
+
+<script type="text/html" id="statusStyle">
+  <!-- 这里同样支持 laytpl 语法，如： -->
+  {{#  if(d.execStatus == 3){ }}
+    <span style="color: #f00;">{{ d._execStatus }}</span>
+  {{#  } else { }}
+    {{ d._execStatus }}
+  {{#  } }}
+</script>
+
+<script type="text/html" id="handleTool">
+  <!-- 这里同样支持 laytpl 语法，如： -->
+  {{#  if(d.execStatus == 2 || d.execStatus == 3){ }}
+          <button class="layui-btn layui-btn-xs" lay-event="dispose">已处理</button>
+  {{#  } }}
+</script>
+
+<script type="text/html" id="logDetail">
+  <button class="layui-btn layui-btn-xs" lay-event="logCont">查看日志</button>
+</script>
+
+
+<script type="text/javascript" src="js/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/job.js"></script>
+</body>
+</html>

@@ -1,0 +1,578 @@
+/* * {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+} */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+ul li {
+  list-style: none;
+}
+
+.detailContainer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-size: 14px;
+  color: #616161;
+}
+
+/* 操作框 */
+.searchBox {
+  margin: 10px 10px 0 10px;
+  border: 1px solid #f2f2f2;
+  border-top: 3px solid #1AA094;
+}
+.searchBox h5.searchHeader {
+  height: 24px;
+  background-color: #f2f2f2;
+  line-height: 24px;
+  padding-left: 10px;
+  position: relative;
+}
+.searchBox h5.searchHeader span.upDown {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  cursor: pointer;
+}
+.searchBox h5.searchHeader span.upDown i {
+  display: none;
+}
+.searchBox .searchContent {
+  padding: 10px;
+}
+.searchTerm {
+  height: 48px;
+}
+.searchTerm .layui-input {
+  display: inline-block;
+  width: 200px;
+}
+.searchTerm .searchInput {
+  display: inline-block;
+  width: 200px;
+}
+.searchTerm .searchSelect {
+  display: inline-block;
+  width: 200px;
+}
+.searchTerm button {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+/* 内容 */
+.contentBox {
+  margin: 10px 10px 0 10px;
+}
+.pointMsg {
+  color: #ccc;
+  margin-bottom: 10px;
+}
+.dialog {
+  display: none;
+  padding: 5px 15px;
+}
+.dialog_cont {
+  width: 400px;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+.dialog_cont p {
+  margin-bottom: 15px;
+}
+.dialog_cont p b {
+  font-weight: 100;
+}
+.dialog_cont p input.layui-input {
+  display: inline-block;
+  height: 40px;
+  width: 310px;
+}
+.dialog_cont p .layui-form-select {
+  display: inline-block;
+  width: 310px;
+}
+.dialog_cont p>span {
+  display: inline-block;
+  width: 60px;
+  text-align: right;
+  padding-right: 10px;
+}
+.dialog_cont>div {
+  margin-bottom: 15px;
+}
+.dialog_cont>div>span {
+  display: inline-block;
+  width: 60px;
+  text-align: right;
+  padding-right: 10px;
+}
+.dialog_cont>div .layui-form-select {
+  display: inline-block;
+  width: 310px;
+}
+
+
+.dialog_content_more {
+  width: 760px; 
+}
+.dialog_content_more p {
+  display: inline-block;
+}
+.dialog_content_more p span {
+  width: 110px;
+}
+.dialog_content_more p input.layui-input {
+   width: 240px; 
+}
+.dialog_content_more p .layui-form-select {
+  display: inline-block;
+  width: 240px;
+}
+.dialog_content_more p .layui-textarea {
+  width: 240px;
+  min-height: 85px;
+}
+
+
+#richTxt {
+  width: 760px;
+}
+#richTxt>span {
+  vertical-align: top;
+}
+#richTxt>b {
+  display: inline-block;
+}
+#richTxt .edui-container {
+  display: inline-block;
+}
+#richTxt .layui-layedit {
+  display: inline-block;
+  width: 606px;
+}
+#richTxt #explainContent {
+  /* display: inline-block;
+  width: 606px; */
+}
+#jsonData {
+  width: 310px;
+}
+
+.sqlContent {
+  margin: 20px 20px 0 0;
+  width: 45%;
+  float: left;
+}
+.result {
+  margin-left: 30px;
+}
+.result .layui-textarea {
+  background: #eaeaea;
+}
+
+.configItem {
+  display: inline-block;
+  width: 298px;
+  border: 1px solid #e6e6e6;
+  vertical-align: top;
+  padding: 15px 10px 5px 0;
+}
+.configItem .layui-input.config {
+  width: 138px;
+  margin-bottom: 10px;
+}
+.configItem>i {
+  display: inline-block;
+  width: 151px;
+  text-align: right;
+  font-style: normal;
+  margin-right: 5px;
+}
+#configItem, #jsonDataInput {
+  display: none;
+}
+.configItem span.msgType .layui-form-select {
+  width: 138px;
+}
+.configItem span.msgType .layui-input {
+  width: 138px;
+  margin-bottom: 10px;
+}
+
+/* 分页 */
+#pagination {
+  height: 34px;
+}
+#pagination .layui-laypage {
+  margin: 0;
+}
+
+/* 分配 */
+.allotSetting h5 {
+  margin: 20px 0 0 20px;
+}
+.roleList {
+  margin: 30px 0 0 80px;
+}
+.roleList li {
+  margin-bottom: 15px;
+}
+.allotSetting .layui-form-checkbox span {
+  padding: 0 15px;
+}
+input.shopInput {
+  border: 1px solid #E6E6E6;
+  width: 308px;
+  height: 38px;
+}
+.commonContent {
+  width: 290px;
+  border: 1px solid #e6e6e6;
+  margin-left: 74px;
+  padding:10px;
+}
+.commonContent li {
+  height:30px;
+  line-height:30px;
+  list-style:none;
+}
+.ulHidden {
+  display:none;
+}
+.commonInput {
+  border: 1px solid #E6E6E6;
+  width: 308px;
+  height: 38px;
+}
+.functionTree {
+  width: 300px;
+  border: 1px solid #e6e6e6;
+  margin-left: 73px;
+  margin-top:-18px;
+}
+
+
+/* 树形 */
+.treeContainer {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+}
+.treeSearch {
+  height: 123px;  
+}
+.treeContent {
+  flex: 1;  
+  overflow-y: auto;
+}
+.treeContent_bgUser {
+  flex: 1;  
+  overflow: hidden;
+  position: relative;
+}
+.treeHandle {
+  height: 75px;
+}
+
+/* sysBGUser 添加用户店铺 */
+.bgUser_tree {
+  width: 100%;
+  height: 100%;
+  /* float: left; */
+  overflow: hidden;
+  overflow-y: auto;
+}
+.bgUser_shop {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  width: 60%;
+  height: 95%;
+  /* float: right;  */
+  display: none;
+}
+.bgUser_shop>div {
+  width: 100%;
+  height: 50%;
+  border: 1px solid #F0F0F0;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.bgUser_shop>div h5 {
+  padding: 0;
+  height: 30px;
+  background: #f2f2f2;
+  line-height: 30px;
+  font-weight: normal;
+  color: #333;
+  padding-left: 10px;
+  position: relative;
+}
+.bgUser_shop>div h5 span {
+  position: absolute;
+  top: -1px;
+  right: 10px;
+  color: #1E9FFF;
+  cursor: pointer;
+}
+.bgUser_shop>div .shop_shopDetail {
+  flex: 1;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.bgUser_shop>div .shop_shopDetail li {
+  font-size: 14px;
+  padding-left: 10px;
+  line-height: 30px;
+}
+
+/* 左侧菜单 */
+.layui-side.layui-bg-black {
+  display: flex;
+}
+.layui-side.layui-bg-black div.menuContent {
+  width: 222px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.layui-side.layui-bg-black div.showHide {
+  width: 18px;
+  height: 100%;
+  border-left: 1px solid rgba(0, 0, 0, .3);
+  margin-top: 9px;
+}
+.sidebar-collapse {
+  width: 219px;
+  height: 32px;
+  border: 1px solid #1AA094;
+}
+.sidebar-collapse p {
+  float: left;
+  width: 50%;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  cursor: pointer;
+}
+.sidebar-collapse p.curMenuTit {
+  background: #1AA094;
+}
+.navContent {
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+}
+.navContent div {
+  display: none;
+}
+.showHide .iconfont {
+  cursor: pointer;
+  color: #eaeaea;
+  display: none;
+}
+.showHide .iconfont:hover {
+  color: #fff;
+}
+.navBar,.layui-nav-tree {
+  height: 100% !important;
+}
+.layui-nav-child {
+  overflow-y: auto;
+}
+.layui-nav-child::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.layui-nav-child::-webkit-scrollbar-track {
+  background-color: #b7b3b3;
+}
+.layui-nav-child::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #ccc;
+}
+
+.layui-nav .layui-nav-item.showItem .layui-nav-child {
+    display: block;
+    padding: 0;
+    background-color: rgba(0,0,0,.3)!important;
+}
+
+
+/*  */
+.assignDialog .dialog_cont {
+  width: 100%;
+  margin: 10px 0; 
+}
+.assignDialog .dialog_cont .assignBox {
+  width: 690px;
+  height: 380px;
+  margin: 0 auto;
+}
+.assignBox .assign {
+  width: 310px;
+  height: 380px;
+  float: left;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+}
+.assign .title {
+  height: 32px;
+  line-height: 32px;
+  border-bottom: 1px solid #eee;
+  background: #F8F8F8;
+  padding-left: 10px;
+}
+.assign .countNum {
+  height: 32px;
+  line-height: 32px;
+  border-top: 1px solid #eee;
+  padding-left: 10px;
+}
+.assign .assignCont {
+  flex: 1;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.assign .assignCont li {
+  margin-top: 13px;
+  list-style: none;
+}
+.assignBox .assign.haveAssign {
+  float: right;
+}
+.assignBox .assignBtn {
+  float: left;
+  margin: 142px 0 0 13px;
+}
+.assigassignBoxnCont .assignBtn p {
+  margin-bottom: 10px;
+}
+.assignDialog .dialog_cont p input.layui-input {
+  display: inline-block;
+  height: 40px;
+  width: 266px;
+}
+.assignDialog .dialog_cont p .layui-form-select {
+  display: inline-block;
+  width: 266px;
+}
+
+
+/* 大数据接口查询 */
+.bigDataApiSearch {
+  overflow-y: auto;
+}
+.bigDataItem {
+  padding: 0 10px;
+  margin: 10px 0 20px 0;
+}
+.bigDataItem .searchItem .search {
+  display: inline-block;
+}
+.bigDataItem .searchItem .search>div {
+  display: inline-block;
+  position: relative;
+}
+.bigDataItem .searchItem .search>div .itemDetail {
+  position: absolute;
+  width: 350px;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  top: 42px;
+  box-shadow: 0 0 0.2px rgba(0, 0, 0, .3);
+  z-index: 99;
+  display: none;
+}
+.bigDataItem .searchItem .search>div .itemDetail.indexDetail {
+  width: 320px;
+}
+.bigDataItem .searchItem .search>div .itemDetail .list {
+  padding: 15px 0 0 10px;
+  max-height: 260px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.bigDataItem .searchItem .search>div .itemDetail .list li {
+  margin-bottom: 10px;
+}
+
+.bigDataItem .searchItem .search>div .layui-input {
+  width: 230px;
+}
+.bigDataItem .searchResult {
+  display: flex;
+  margin-top: 10px;
+}
+.bigDataItem .searchResult>span {
+  width: 74px;
+}
+.bigDataItem .searchResult>div {
+  flex: 1;
+}
+.bigDataItem .searchResult .layui-table {
+  margin: 0;
+}
+
+/* loggingEvent 错误明细 */
+.errorDetailDialog {
+  width: 100%;
+  overflow: hidden;
+}
+.errorDetailCont {
+  width: 640px;
+  margin: 10px auto;
+}
+.errorDetailCont p {
+  line-height: 28px;
+  font-size: 15px;
+}
+
+/* 定时任务 查看日志 */
+.checkLogDialog {
+  display: none;
+  padding: 5px 15px 0 15px;
+}
+
+
+
+
+/* 滚动条样式 */
+::-webkit-scrollbar 
+{ 
+  width: 15px;  /* 滚动条宽度 */
+  height: 15px;  /* 滚动条高度 */
+} 
+
+/* 定义滚动条轨道 内阴影+圆角 */
+::-webkit-scrollbar-track 
+{ 
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2); 
+  border-radius: 10px; /*滚动条的背景区域的圆角*/
+  background-color: rgba(141, 140, 140, 0.2); /*滚动条的背景颜色*/
+} 
+  
+/* 定义滑块 内阴影+圆角 */
+::-webkit-scrollbar-thumb 
+{ 
+  border-radius: 10px;  /*滚动条的圆角*/
+  /* -webkit-box-shadow: inset 0 0 6px rgba(50, 50, 50, .1); */
+  background-color: rgba(138, 138, 138, .4); /*滚动条的背景颜色*/
+} 

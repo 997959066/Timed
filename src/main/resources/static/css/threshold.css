@@ -1,0 +1,52 @@
+.addThreshold {
+  width: 620px;
+  min-height: 300px;
+  margin: 0 auto;
+  color: #616161;
+  font-size: 14px;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+.addThreshold input[type=text] {
+  height: 40px;
+}
+
+.addThreshold .layui-form-item {
+  margin-bottom: 20px;
+}
+
+.addThreshold .itemLabel {
+  width: 110px;
+  text-align: right;
+}
+
+.addThreshold .selectBox {
+  margin-left: 140px;
+}
+
+.addThreshold .dataSet {
+  margin-left: 140px;
+  margin-top: 10px;
+}
+
+.addThreshold .dataSet span {
+}
+
+.addThreshold .dataSet .layui-form-select {
+  display: inline-block;
+}
+.addThreshold .dataSet .layui-form-select .layui-input {
+  width: 110px;
+}
+.addThreshold .layui-form-select dl {
+  max-height: 200px;
+}
+
+.addThreshold .dataSet .layui-input {
+  display: inline-block;
+  width: 123px;
+}
+.addThreshold .dataSet .layui-input.target {
+  width: 263px;
+}

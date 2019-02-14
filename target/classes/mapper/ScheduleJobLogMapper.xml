@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xiaoyu.dao.ScheduleJobLogMapper">
+  <resultMap id="resultMap" type="cn.xiaoyu.entity.ScheduleJobLog">
+    <id column="id" property="id" />
+    <result column="jobId" property="jobId" />
+    <result column="execUrl" property="execUrl" />
+    <result column="execMsg" property="execMsg" />
+    <result column="execStatus" property="execStatus" />
+    <result column="optStatus" property="optStatus" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="updateDate" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+
+  	<sql id="tableName">
+		scheduleJobLog
+	</sql>
+
+	<insert id="append" parameterType="cn.xiaoyu.entity.ScheduleJobLog"
+	 					useGeneratedKeys="true" keyProperty="id">
+		Insert Into <include refid="tableName" /> (jobId,execUrl,execMsg,execStatus)
+		values(#{jobId},#{execUrl},#{execMsg},#{execStatus})
+	</insert>
+
+<select id="list" parameterType="map" resultMap="resultMap">
+		SELECT * from scheduleJobLog where jobId=#{jobId}
+	</select>
+</mapper>

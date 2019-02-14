@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>任务列表</title>
+<style type="text/css">
+</style>
+<script type="text/javascript" src="js/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    	list();
+    });
+    function list(){
+        $.ajax({
+            url: '/job/list',
+            type: 'get',
+            error: function(){
+               alert("执行失败！");		
+            },
+            success: function(data){
+            	jdata = eval(data);
+                hm = "<tr><th nowrap>任务id</th><th nowrap>任务名称</th><th nowrap>任务分组</th>"
+                hm += "<th nowrap>任务执行地址</th><th nowrap>回调地址</th><th nowrap>重试次数</th>"
+                hm += "<th nowrap></th></tr>";
+                for(var i in jdata){
+                    var d = jdata[i];
+                    hm += "<tr>";
+                    hm += "<td nowrap>"+d.id + "</td>";
+                    hm += "<td nowrap>"+d.jobName + "</td>";
+                    hm += "<td nowrap>"+d.jobGroup + "</td>";
+                    hm += "<td nowrap>"+d.jobArguments + "</td>";
+                    hm += "<td nowrap>"+d.failCallbackUrl + "</td>";
+                    hm += "<td nowrap>"+d.retryCount + "</td>";
+                    hm += "<td nowrap><a href=\"javascript:void(0)\" onclick=\"del('" +d.jobName+ "','" + d.jobGroup + "')\">删除</a></td>";
+                    hm += "</tr>";
+                }
+                 
+                $("#dataList").html(hm);
+            }
+        });
+    }
+
+    function del(jobId, jobGroup){
+	    $.ajax({
+		    url: '/job/delete',
+		    type: 'get',
+		    data: 'jobId='+jobId+'&jobGroup='+jobGroup,
+		    error: function(){
+		       alert("执行失败！");      
+		    },
+		    success: function(d){
+		        list();
+		    }
+	    });
+    }
+</script>
+</head>
+<div>
+		<input type="button" value="后台日志" onClick="window.open('log.html','blank_','scrollbars=yes,resizable=yes,width=1000,height=600')">
+</div>
+<body>
+    <p align="center">定时任务列表</p>
+    <table id="dataList" border="1">
+        <tr>
+            <th nowrap>任务id</th>
+            <th nowrap>任务名称</th>
+            <th nowrap>任务分组</th>
+            <th nowrap>任务执行地址</th>
+            <th nowrap>回调地址</th>
+            <th nowrap>重试次数</th>
+        </tr>
+        
+    </table>
+</body>
+</html>

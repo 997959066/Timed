@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xiaoyu.dao.QuartzScheduleMapper">
+	<resultMap id="resultMap" type="cn.xiaoyu.entity.ScheduleJob">
+		<id column="id" property="id" />
+		<result column="jobName" property="jobName" />
+		<result column="jobGroup" property="jobGroup" />
+		<result column="jobStatus" property="jobStatus" />
+		<result column="jobDesc" property="jobDesc" />
+		<result column="jobUrl" property="jobUrl" />
+		<result column="jobParam" property="jobParam" />
+		<result column="jobHeader" property="jobHeader" />
+		<result column="cronExpression" property="cronExpression" />
+		<result column="concurrent" property="concurrent" />
+		<result column="targetObject" property="targetObject" />
+		<result column="targetMethod" property="targetMethod" />
+		<result column="beginDate" jdbcType="TIMESTAMP" property="beginDate" />
+		<result column="expiredDate" jdbcType="TIMESTAMP" property="expiredDate" />
+		<result column="execStatus" property="execStatus" />
+		<result column="failCallbackUrl" property="failCallbackUrl" />
+		<result column="retryCount" property="retryCount" />
+		<result column="createDate" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="updateDate" jdbcType="TIMESTAMP" property="updateDate" />
+	</resultMap>
+
+	<select id="selectJob" resultMap="resultMap">
+		SELECT c.* from scheduleJob c,
+		(Select
+		id,datetime(beginDate, '-5 minutes') as beginDate
+		From
+		scheduleJob Where
+		jobStatus &lt; 2 ) a,
+		(Select
+		id,datetime(expiredDate, '5 minutes') as
+		expiredDate
+		From
+		scheduleJob Where jobStatus &lt; 2) b
+		WHERE a.id=b.id
+		and c.id=b.id and datetime('now', 'localtime' ) BETWEEN a.beginDate
+		and b.expiredDate
+
+	</select>
+
+	<update id="updateStatus" parameterType="map">
+		Update scheduleJob
+		Set jobStatus = #{status}
+		Where id = #{id}
+	</update>
+
+	<update id="updateExecStatus" parameterType="map">
+		Update scheduleJob
+		Set execStatus = #{execStatus}
+		Where id = #{id}
+	</update>
+	
+	
+	<!--  -->
+	
+	<select id="list" parameterType="cn.xiaoyu.entity.ScheduleJob" resultMap="resultMap">
+		SELECT * from scheduleJob where 1=1
+				   <if test="jobName != null ">
+            		and jobName = #{jobName}
+        			</if>
+				  <if test="jobStatus != null ">
+            		and jobStatus = #{jobStatus}
+        			</if>
+				  <if test="jobDesc != null ">
+            		and jobDesc = #{jobDesc}
+        			</if>
+				  <if test="jobUrl != null ">
+            		and jobUrl = #{jobUrl}
+        			</if>
+				  <if test="jobParam != null ">
+            		and jobParam = #{jobParam}
+        			</if>
+				  <if test="jobHeader != null ">
+            		and jobHeader = #{jobHeader}
+        			</if>
+				  <if test="cronExpression != null ">
+            		and cronExpression = #{cronExpression}
+        			</if>
+				  <if test="concurrent != null ">
+            		and concurrent = #{concurrent}
+        			</if>
+				  <if test="targetMethod != null ">
+            		and targetMethod = #{targetMethod}
+        			</if>
+				  <if test="expiredDate != null ">
+            		and expiredDate = #{expiredDate}
+        			</if>
+				  <if test="beginDate != null ">
+            		and beginDate = #{beginDate}
+        			</if>
+				  <if test="execStatus != null ">
+            		and execStatus = #{execStatus}
+        			</if>
+				  <if test="createDate != null ">
+            		and createDate = #{createDate}
+        			</if> 
+	</select>
+	
+	<insert id="append" parameterType="cn.xiaoyu.entity.ScheduleJob" useGeneratedKeys="true" keyProperty="id">
+		Insert Into  scheduleJob 
+		(jobName,jobGroup,jobDesc,jobUrl,jobParam,jobHeader
+		,cronExpression,concurrent,targetMethod,beginDate,expiredDate,
+		failCallbackUrl,retryCount)
+		values
+		(#{jobName},#{jobGroup},#{jobDesc},#{jobUrl},#{jobParam},#{jobHeader},
+		#{cronExpression},#{concurrent},#{targetMethod},#{beginDate},#{expiredDate},
+		#{failCallbackUrl},#{retryCount})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from scheduleJob where id=#{id}
+	</delete>
+	
+	
+	<update id="update" parameterType="cn.xiaoyu.entity.ScheduleJob">
+		Update scheduleJob
+		Set jobName = #{jobName},jobGroup = #{jobGroup},jobStatus = #{jobStatus},jobDesc = #{jobDesc},
+		jobDesc = #{jobDesc},jobUrl = #{jobUrl},jobParam = #{jobParam},jobHeader = #{jobHeader},
+		cronExpression = #{cronExpression},concurrent = #{concurrent},targetObject = #{targetObject},targetMethod = #{targetMethod},
+		beginDate = #{beginDate},expiredDate = #{expiredDate},execStatus = #{execStatus},failCallbackUrl = #{failCallbackUrl},
+		retryCount = #{retryCount},updateDate = #{updateDate}
+		Where id = #{id}
+	</update>
+</mapper>
